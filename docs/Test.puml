@@ -42,6 +42,7 @@ Default <|-- Category
 
 User "1"-"*" Task
 Task "*"-"1" Category
+User "1"--"*" Category
 
 
 @enduml
