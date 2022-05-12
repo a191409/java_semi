@@ -14,7 +14,7 @@ public class Client {
 	private final static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 	private final static String DRIVER_URL = "jdbc:mysql://" + HOST_NAME + ":3306/" + DATABASE_NAME + "?useUnicode=true&characterEncoding=utf-8";
 
-	public static Connection createConnection() {
+	public static Connection create() {
 		try {
 			Class.forName(DRIVER_NAME);
 			Connection connection = DriverManager.getConnection(DRIVER_URL, USER_NAME, PASSWORD);
