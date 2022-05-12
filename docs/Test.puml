@@ -7,10 +7,11 @@ class Default {
 }
 
 class User {
+    String name
     String email
     String pass
 
-    + registUser()
+    + signUpUser()
     + login()
     + list()
 }
@@ -22,18 +23,17 @@ class Task {
     Integer didIt
 
     + search()
-    + registTask()
+    + insertTask()
     + didTask()
     + update()
 }
 
 class Category {
     String name
-    Integer userId
 
     + initialCategory()
     + search()
-    + registCategory()
+    + insertCategory()
 }
 
 Default <|-- User
