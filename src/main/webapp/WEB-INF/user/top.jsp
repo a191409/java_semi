@@ -8,6 +8,7 @@
 <body>
 
 <h1>ログイン成功</h1>
+カテゴリー登録は<a href="/category/insert">こちら</a>から
 
 <%--以下は後日実装--%>
 <%--<div class = "header">--%>
