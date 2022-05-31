@@ -9,11 +9,11 @@ public class Task extends Default {
     private String name;
     private String description;
     private Date limit;
-    private Integer didIt;
+    private Boolean didIt;
     private Integer categoryId;
     private Integer userId;
 
-    public Task(Integer id, Timestamp createdAt, Timestamp updatedAt, String name, String description, Date limit, Integer didIt, Integer categoryId, Integer userId) {
+    public Task(Integer id, String name, String description, Date limit, Boolean didIt, Timestamp createdAt, Timestamp updatedAt, Integer categoryId, Integer userId) {
         super(id, createdAt, updatedAt);
         this.name = name;
         this.description = description;
@@ -36,7 +36,7 @@ public class Task extends Default {
         return limit;
     }
 
-    public Integer getDidIt() {
+    public Boolean getDidIt() {
         return didIt;
     }
 
@@ -62,7 +62,7 @@ public class Task extends Default {
         this.limit = limit;
     }
 
-    public void setDidIt(Integer didIt) {
+    public void setDidIt(Boolean didIt) {
         this.didIt = didIt;
     }
 
@@ -72,5 +72,9 @@ public class Task extends Default {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public void insert() {
+        Repository.insert(this);
     }
 }
