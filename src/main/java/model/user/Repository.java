@@ -61,8 +61,8 @@ public class Repository extends Client {
                 user = new User(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        null,
-                        null,
+                        rs.getString("email"),
+                        rs.getString("pass"),
                         null,
                         null
                 );
