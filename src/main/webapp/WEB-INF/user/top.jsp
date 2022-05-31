@@ -8,7 +8,9 @@
 <body>
 
 <h1>ログイン成功</h1>
-
+<span class="label label-danger">${Error}</span>
+<h2>${currentuser.name}</h2>
+<h3><a href="/user/logout">ログアウト</a></h3>
 <%--以下は後日実装--%>
 <%--<div class = "header">--%>
 <%--  <header>--%>
