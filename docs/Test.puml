@@ -1,29 +1,48 @@
 @startuml
 
-class キャラクター{
-名前
-HP
-+戦う()
-+逃げる()
-}
-class 人間{
-+眠る()
-}
-class 魔法使い{
-魔力
-+魔法()
-}
-class 勇者{
-+座る()
-}
-class スライム{
-+飲み込む()
+class Default {
+    Integer id
+    Timestamp createdAt
+    Timestamp updatedAt
 }
 
-キャラクター <|-- 人間
-キャラクター <|--- スライム
+class User {
+    String name
+    String email
+    String pass
 
-人間 <|-- 勇者
-人間 <|-- 魔法使い
+    + signUpUser()
+    + login()
+    + list()
+}
+
+class Task {
+    String name
+    String description
+    Date limit
+    Integer didIt
+
+    + search()
+    + insertTask()
+    + didTask()
+    + update()
+}
+
+class Category {
+    String name
+
+    + initialCategory()
+    + search()
+    + insertCategory()
+}
+
+Default <|-- User
+Default <|-- Task
+Default <|-- Category
+
+User "1"-"*" Task
+Task "*"-"1" Category
+User "1"--"*" Category
+
 
 @enduml
