@@ -8,7 +8,6 @@ public class Repository extends Client {
     public static void signUpUser(User user) {
         Connection connection = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
 
         try {
             //sql文を用意
