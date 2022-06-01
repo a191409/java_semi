@@ -15,7 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 @WebServlet("/task/insert")
-public class insert extends HttpServlet {
+public class Insert extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
