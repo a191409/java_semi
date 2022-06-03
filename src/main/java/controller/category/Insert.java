@@ -1,6 +1,7 @@
 package controller.category;
 
 import model.category.Category;
+import model.user.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/category/insert")
@@ -21,11 +23,16 @@ public class Insert extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         String name = req.getParameter("name");
+
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("currentUser");
+
         Category category = new Category(
                 null,
                 name,
                 null,
-                null
+                null,
+                user.getId()
         );
 
         category.insert();
