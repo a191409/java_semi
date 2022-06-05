@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ public class Insert extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        ArrayList<Category> categories = model.category.Repository.indexCategories();
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("currentUser");
+
+        ArrayList<Category> categories = Category.indexCategories(user);
         req.setAttribute("categories", categories);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/task/insert.jsp");
@@ -48,10 +52,8 @@ public class Insert extends HttpServlet {
                 userId
         );
 
-        System.out.println(task);
-
         task.insert();
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/user/login");
     }
 }

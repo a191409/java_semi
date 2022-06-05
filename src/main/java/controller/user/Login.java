@@ -14,6 +14,20 @@ import java.io.IOException;
 
 @WebServlet("/user/login")
 public class Login extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("currentUser");
+        if (user != null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/user/top.jsp");
+            dispatcher.forward(req, resp);
+        } else {
+            resp.sendRedirect("/");
+        }
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
