@@ -1,11 +1,11 @@
 package model.task;
 
 import lib.mysql.Client;
+import model.category.Category;
+import model.user.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Repository extends Client {
     public static void insert(Task task) {
@@ -34,6 +34,43 @@ public class Repository extends Client {
             e.printStackTrace();
         } finally {
             close(connection, stmt, null);
+        }
+    }
+
+    public static ArrayList<Task> indexTasks(User user) {
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from tasks where user_id = ? order by category_id,`limit`";
+
+            connection = create();
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, user.getId());
+            rs = stmt.executeQuery();
+
+            ArrayList<Task> tasks = new ArrayList<>();
+            while (rs.next()) {
+                Task task = new Task(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getDate("limit"),
+                        rs.getBoolean("did_it"),
+                        null,
+                        null,
+                        rs.getInt("category_id"),
+                        rs.getInt("user_id")
+                );
+                tasks.add(task);
+            }
+            return tasks;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            close(connection, stmt, rs);
         }
     }
 }

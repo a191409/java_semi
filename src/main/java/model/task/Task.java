@@ -1,9 +1,10 @@
 package model.task;
 
 import model.Default;
-
+import model.user.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Task extends Default {
     private String name;
@@ -76,5 +77,9 @@ public class Task extends Default {
 
     public void insert() {
         Repository.insert(this);
+    }
+
+    public static ArrayList<Task> indexTasks(User user){
+        return Repository.indexTasks(user);
     }
 }

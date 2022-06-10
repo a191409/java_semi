@@ -52,7 +52,7 @@ public class Repository extends Client {
                         rs.getString("name"),
                         null,
                         null,
-                        null
+                        rs.getInt("user_id")
                 );
                 categories.add(category);
             }

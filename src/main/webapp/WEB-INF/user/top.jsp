@@ -6,29 +6,14 @@
   <title>TOP画面</title>
 </head>
 <body>
-
-<h1>ログイン成功</h1>
-<span class="label label-danger">${Error}</span>
 <h2>${currentuser.name}</h2>
-カテゴリー登録は<a href="/category/insert">こちら</a>から
-タスク登録は<a href="/task/insert">こちら</a>から
-<h3><a href="/user/logout">ログアウト</a></h3>
-
-<%--以下は後日実装--%>
-<%--<div class = "header">--%>
-<%--  <header>--%>
-<%--    <h2>${user.email}</h2>--%>
-<%--    <%@ include file="../common/header.jsp"%>--%>
-<%--  </header>--%>
-<%--</div>--%>
-<%--<div class="main">--%>
-<%--  <span class="label label-danger">${Error}</span>--%>
-<%--  <c:if test="${not empty task}">--%>
-<%--    <form action = "/DidTask" method = post>--%>
-<%--      <%@ include file="../common/task.jsp"%>--%>
-<%--      <button>更新</button>--%>
-<%--    </form>--%>
-<%--  </c:if>--%>
+<%@ include file="../common/header.jsp"%>
+  <c:if test="${not empty tasks}">
+      <form action = "/DidTask" method = post>
+        <%@ include file="../common/task.jsp"%>
+      <button>更新</button>
+      </form>
+  </c:if>
 </div>
 </body>
 </html>

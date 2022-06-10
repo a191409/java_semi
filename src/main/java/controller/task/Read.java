@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 
-@WebServlet("/task/insert")
-public class Insert extends HttpServlet {
+@WebServlet("/task/read")
+public class Read extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
@@ -26,34 +26,14 @@ public class Insert extends HttpServlet {
         ArrayList<Category> categories = Category.indexCategories(user);
         req.setAttribute("categories", categories);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/task/insert.jsp");
+        ArrayList<Task> tasks = Task.indexTasks(user);
+        req.setAttribute("tasks", tasks);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/user/top.jsp");
         dispatcher.forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-
-        String name = req.getParameter("name");
-        String description = req.getParameter("description");
-        Date limit = Date.valueOf(req.getParameter("limit"));
-        Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
-        User user = (User) req.getSession().getAttribute("currentUser");
-        Integer userId = user.getId();
-
-        Task task = new Task(
-                null,
-                name,
-                description,
-                limit,
-                false,
-                null,
-                null,
-                categoryId,
-                userId
-        );
-
-        task.insert();
-
-        resp.sendRedirect("/task/read");
     }
 }
