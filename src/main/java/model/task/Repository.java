@@ -43,7 +43,7 @@ public class Repository extends Client {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from tasks where user_id = ? order by category_id,`limit`";
+            String sql = "select * from tasks where user_id = ? and did_it = 0 order by category_id,`limit`";
 
             connection = create();
             stmt = connection.prepareStatement(sql);
@@ -151,6 +151,28 @@ public class Repository extends Client {
             e.printStackTrace();
         }finally {
             close(connection, stmt,null);
+        }
+    }
+    public static void didIt(Task task){
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "update tasks set did_it = 1 ,updated_at = ? where id = ?";
+
+            connection = create();
+
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+            stmt = connection.prepareStatement(sql);
+            stmt.setTimestamp(1,currentTime);
+            stmt.setInt(2, task.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection, stmt, null);
         }
     }
 }

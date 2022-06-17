@@ -83,6 +83,8 @@ public class Task extends Default {
 
     public void delete(){ Repository.delete(this);}
 
+    public void didIt(){ Repository.didIt(this);}
+
     public Task search(){
         Task task = Repository.search(this);
         return task;
