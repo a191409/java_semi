@@ -7,7 +7,7 @@
                 <h3>${category.name}</h3>
             </c:if>
         </c:forEach>
-        <c:set var = "category" value="${item.categoryId}"/>
+        <c:set var = "count" value="${item.categoryId}"/>
     </c:if>
     <div class = "task">
             <input type="radio" name = "did" value="${item.id}">
