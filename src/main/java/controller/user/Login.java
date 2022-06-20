@@ -24,7 +24,8 @@ public class Login extends HttpServlet {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/user/top.jsp");
             dispatcher.forward(req, resp);
         } else {
-            resp.sendRedirect("/");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/index.jsp");
+            dispatcher.forward(req, resp);
         }
     }
 
