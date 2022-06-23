@@ -43,7 +43,7 @@ public class Repository extends Client {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from tasks where user_id = ? order by category_id,`limit`";
+            String sql = "select * from tasks where user_id = ? and did_it = 0 order by category_id,`limit`";
 
             connection = create();
             stmt = connection.prepareStatement(sql);
@@ -71,6 +71,108 @@ public class Repository extends Client {
             return null;
         } finally {
             close(connection, stmt, rs);
+        }
+    }
+    public static Task search(Task task){
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from tasks where id = ? order by category_id,`limit`";
+
+            connection = create();
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, task.getId());
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                task = new Task(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getDate("limit"),
+                        rs.getBoolean("did_it"),
+                        null,
+                        null,
+                        rs.getInt("category_id"),
+                        rs.getInt("user_id")
+                );
+            }
+            return task;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            close(connection, stmt, rs);
+        }
+    }
+    public static void update(Task task){
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "update tasks set name = ?,description = ?, `limit` = ?, did_it = ?, updated_at = ?, category_id = ? where id = ?";
+
+            connection = create();
+
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, task.getName());
+            stmt.setString(2, task.getDescription());
+            stmt.setDate(3, task.getLimit());
+            stmt.setBoolean(4, task.getDidIt());
+            stmt.setTimestamp(5, currentTime);
+            stmt.setInt(6, task.getCategoryId());
+            stmt.setInt(7,task.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection, stmt, null);
+        }
+    }
+    public static void delete(Task task){
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try{
+            String sql = "DELETE from tasks where id = ?";
+
+            connection = create();
+
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,task.getId());
+
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            close(connection, stmt,null);
+        }
+    }
+    public static void didIt(Task task){
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "update tasks set did_it = 1 ,updated_at = ? where id = ?";
+
+            connection = create();
+
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+            stmt = connection.prepareStatement(sql);
+            stmt.setTimestamp(1,currentTime);
+            stmt.setInt(2, task.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection, stmt, null);
         }
     }
 }

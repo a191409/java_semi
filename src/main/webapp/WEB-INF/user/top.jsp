@@ -9,7 +9,7 @@
 <h2>${currentuser.name}</h2>
 <%@ include file="../common/header.jsp"%>
   <c:if test="${not empty tasks}">
-      <form action = "/DidTask" method = post>
+      <form action = "/task/didIt" method = post>
         <%@ include file="../common/task.jsp"%>
       <button>更新</button>
       </form>

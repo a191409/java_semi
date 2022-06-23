@@ -79,6 +79,17 @@ public class Task extends Default {
         Repository.insert(this);
     }
 
+    public void update(){ Repository.update(this); }
+
+    public void delete(){ Repository.delete(this);}
+
+    public void didIt(){ Repository.didIt(this);}
+
+    public Task search(){
+        Task task = Repository.search(this);
+        return task;
+    }
+
     public static ArrayList<Task> indexTasks(User user){
         return Repository.indexTasks(user);
     }
